@@ -2,7 +2,10 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import mustache from 'mustache-express';
 import dotenv from 'dotenv';
+
 import connection from './instances/mysql';
+import categoriesRoute from './routes/categories.route';
+import articlesRoute from './routes/articles.route';
 
 console.log('Server starting...');
 dotenv.config();
@@ -26,6 +29,9 @@ connection
         console.log('Database connection error: ', error);
     });
 
+
+app.use(categoriesRoute);
+app.use(articlesRoute);
 app.get('/', (req: Request, res: Response) => {
     res.render('index');
 });
