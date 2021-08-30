@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env);
-
 const sequelize = new Sequelize(
     process.env.MYSQL_DB as string,
     process.env.MYSQL_USER as string,
