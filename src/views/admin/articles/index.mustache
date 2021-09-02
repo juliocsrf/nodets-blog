@@ -26,7 +26,7 @@
                     <td>{{category.title}}</td>
                     <td>
                         <a href="/admin/articles/edit/{{id}}" class="btn btn-warning">Editar</a>
-                        <form action="/articles/delete" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                        <form action="/admin/articles/delete" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
                             <input type="hidden" name="id" value="{{id}}">
                             <button class="btn btn-danger">Excluir</button>
                         </form>

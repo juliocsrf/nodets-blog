@@ -26,3 +26,12 @@ export const store = async (req: Request, res: Response) => {
 
     res.redirect('/admin/articles');
 }
+
+export const destroy = async (req: Request, res: Response) => {
+    let id = req.body.id;
+    if (id !== undefined && !isNaN(id)) {
+        await articleService.delete(id);
+    }
+
+    res.redirect('/admin/articles');
+}
