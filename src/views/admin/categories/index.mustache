@@ -1,0 +1,63 @@
+{{>partials/header}}
+{{>partials/navbar}}
+
+<div class="container">
+    <hr>
+    <h2>Categorias</h2>
+    <a class="btn btn-success" href="/admin/categories/new">Nova categoria</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#categories}}
+            <tr>
+                <td>
+                    {{ id }}
+                </td>
+                <td>
+                    {{ title }}
+                </td>
+                <td>
+                    {{ slug }}
+                </td>
+                <td>
+                    <a href="/admin/categories/edit/{{id}}" class="btn btn-warning">Editar</a>
+                    <form action="/categories/delete" method="post" style="display: inline;"
+                        onsubmit="confirmDelete(event, this)">
+                        <input type="hidden" name="id" value="{{id}}">
+                        <button class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {{/categories}}
+
+            {{^categories}}
+            <tr>
+                <td colspan="4" style="text-align: center;">Nenhum registro encontrado</td>
+            </tr>
+            {{/categories}}
+        </tbody>
+    </table>
+</div>
+
+{{partials/footer}}
+
+<script>
+    const confirmDelete = (event, form) => {
+        event.preventDefault();
+
+        let decision = confirm('Tem certeza que deseja excluir a categoria selecionada');
+
+        if(decision) {
+            form.submit();
+        }
+    }
+</script>
