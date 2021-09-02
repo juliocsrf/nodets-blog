@@ -49,6 +49,18 @@ export class ArticleService {
         return article;
     }
 
+    async findBySlug(slug: string): Promise<ArticleInstance | null> {
+        let article = null;
+
+        try {
+            article = await Article.findOne({ where: { slug } });
+        } catch(err) {
+            console.log('Ocorreu um erro ao buscar o artigo pelo SLUG');
+        }
+
+        return article;
+    }
+
     async getAll(withCategories: boolean = true): Promise<ArticleInstance[]> {
         let options = {};
         if (withCategories) {
