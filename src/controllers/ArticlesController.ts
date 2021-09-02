@@ -5,8 +5,9 @@ import { CategoryService } from '../services/CategoryService';
 let articleService = new ArticleService();
 let categoryService = new CategoryService();
 
-export const index = (req: Request, res: Response) => {
-    res.send('Index articles');
+export const index = async (req: Request, res: Response) => {
+    let articles = await articleService.getAll();
+    res.render('admin/articles/index', { articles });
 }
 
 export const create = async (req: Request, res: Response) => {
@@ -19,7 +20,7 @@ export const store = async (req: Request, res: Response) => {
     let body: string = req.body.body;
     let id_category: number = parseInt(req.body.category);
 
-    if(title && body && !isNaN(id_category)) {
+    if (title && body && !isNaN(id_category)) {
         await articleService.create(title, body, id_category);
     }
 

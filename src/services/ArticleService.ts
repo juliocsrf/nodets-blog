@@ -1,4 +1,5 @@
 import Article, { ArticleInstance } from "../models/Article";
+import Category from "../models/Category";
 import slugify from 'slugify';
 
 export class ArticleService {
@@ -48,8 +49,16 @@ export class ArticleService {
         return article;
     }
 
-    async getAll(): Promise<ArticleInstance[]> {
-        return await Article.findAll();
+    async getAll(withCategories: boolean = true): Promise<ArticleInstance[]> {
+        let options = {};
+        if (withCategories) {
+            options = {
+                include: [{ model: Category, as: 'category' }]
+            }
+        }
+
+        let articles = await Article.findAll(options);
+        return articles;
     }
 
 }

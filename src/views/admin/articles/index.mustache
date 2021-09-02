@@ -1,0 +1,52 @@
+{{>partials/header}}
+{{>partials/navbar}}
+
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new">Novo artigo</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ #articles }}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{title}}</td>
+                    <td>{{slug}}</td>
+                    <td>{{category.title}}</td>
+                    <td>
+                        <a href="/admin/articles/edit/{{id}}" class="btn btn-warning">Editar</a>
+                        <form action="/articles/delete" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <button class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {{ /articles }}
+        </tbody>
+    </table>
+</div>
+
+{{>partials/footer}}
+
+<script>
+    const confirmDelete = (event, form) => {
+        event.preventDefault();
+
+        let decision = confirm('Tem certeza que deseja excluir o artigo selecionado?');
+
+        if(decision) {
+            form.submit();
+        }
+    }
+</script>
