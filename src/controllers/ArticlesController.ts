@@ -13,3 +13,15 @@ export const create = async (req: Request, res: Response) => {
     let categories = await categoryService.getAll();
     res.render('admin/articles/new', { categories });
 }
+
+export const store = async (req: Request, res: Response) => {
+    let title: string = req.body.title;
+    let body: string = req.body.body;
+    let id_category: number = parseInt(req.body.category);
+
+    if(title && body && !isNaN(id_category)) {
+        await articleService.create(title, body, id_category);
+    }
+
+    res.redirect('/admin/articles');
+}
