@@ -31,6 +31,7 @@ connection
 
 app.use(categoriesRoute);
 app.use(articlesRoute);
+
 app.get('/', (req: Request, res: Response) => {
     res.render('index');
 });
