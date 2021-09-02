@@ -1,23 +1,31 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, Optional, DataTypes } from "sequelize";
+import sequelize from '../instances/mysql';
+import Article from './Article';
 
-import connection from '../instances/mysql';
-
-interface CategoryInstance extends Model {
+interface CategoryAttributes {
     id: number;
     title: string;
     slug: string;
 }
 
-const Category = connection.define<CategoryInstance>('Category', {
+interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
+
+interface CategoryInstance extends Model<CategoryAttributes, CategoryCreationAttributes> {}
+
+const Category = sequelize.define<CategoryInstance>('Category', {
     id: {
-        primaryKey: true,
+        allowNull: false,
         autoIncrement: true,
-        type: DataTypes.INTEGER
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        unique: true
     },
     title: {
+        allowNull: false,
         type: DataTypes.STRING
     },
     slug: {
+        allowNull: false,
         type: DataTypes.STRING
     }
 }, {
@@ -25,5 +33,10 @@ const Category = connection.define<CategoryInstance>('Category', {
     timestamps: false
 });
 
+// Category.hasMany(Article, {
+//     sourceKey: 'id_category',
+//     foreignKey: 'id',
+//     as: 'articles'
+// });
 
 export default Category;

@@ -1,9 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
-
-import connection from '../instances/mysql';
+import { Model, Optional, DataTypes } from "sequelize";
+import sequelize from '../instances/mysql';
 import Category from './Category';
 
-interface ArticleInstance extends Model {
+interface ArticleAttributes {
     id: number;
     title: string;
     slug: string;
@@ -11,33 +10,42 @@ interface ArticleInstance extends Model {
     id_category: number;
 }
 
-const Article = connection.define<ArticleInstance>('Article', {
+interface ArticleCreationAttributes extends Optional<ArticleAttributes, 'id'>{}
+
+interface ArticleInstance extends Model<ArticleAttributes, ArticleCreationAttributes> {}
+
+const Article = sequelize.define<ArticleInstance>('Article', {
     id: {
-        primaryKey: true,
+        allowNull: false,
         autoIncrement: true,
-        type: DataTypes.INTEGER
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        unique: true
     },
     title: {
+        allowNull: false,
         type: DataTypes.STRING
     },
     slug: {
+        allowNull: false,
         type: DataTypes.STRING
     },
     body: {
+        allowNull: false,
         type: DataTypes.STRING
     },
     id_category: {
-        type: DataTypes.NUMBER
+        allowNull: false,
+        type: DataTypes.INTEGER
     }
 }, {
     tableName: 'articles',
     timestamps: false
 });
 
-Article.hasOne(Category, {
+Article.belongsTo(Category, {
     foreignKey: 'id_category',
     as: 'category'
 });
-
 
 export default Article;
