@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "up-db": "npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
     "dev": "nodemon -e ts,json,mustache src/app.ts",
     "compile": "tsc && copyfiles -u 1 src/**/*.mustache dist/",
     "start": "node dist/app.js"
