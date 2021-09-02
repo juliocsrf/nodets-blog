@@ -1,6 +1,5 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import sequelize from '../instances/mysql';
-import Article from './Article';
 
 interface CategoryAttributes {
     id: number;
@@ -10,9 +9,9 @@ interface CategoryAttributes {
 
 interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
 
-export interface CategoryInstance extends Model<CategoryAttributes, CategoryCreationAttributes> {}
+export interface CategoryInstance extends Model<CategoryAttributes, CategoryCreationAttributes>, CategoryAttributes {}
 
-const Category = sequelize.define<CategoryInstance>('Category', {
+export const Category = sequelize.define<CategoryInstance>('Category', {
     id: {
         allowNull: false,
         autoIncrement: true,

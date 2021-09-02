@@ -6,5 +6,6 @@ const router = Router();
 
 router.get('/', HomeController.index);
 router.get('/:slug', HomeController.showArticle);
+router.get('/category/:slug', HomeController.showByCategory);
 
 export default router;

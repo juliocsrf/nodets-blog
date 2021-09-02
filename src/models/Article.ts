@@ -12,7 +12,7 @@ interface ArticleAttributes {
 
 interface ArticleCreationAttributes extends Optional<ArticleAttributes, 'id'>{}
 
-export interface ArticleInstance extends Model<ArticleAttributes, ArticleCreationAttributes> {}
+export interface ArticleInstance extends Model<ArticleAttributes, ArticleCreationAttributes>, ArticleAttributes {}
 
 const Article = sequelize.define<ArticleInstance>('Article', {
     id: {

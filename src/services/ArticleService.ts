@@ -54,11 +54,18 @@ export class ArticleService {
 
         try {
             article = await Article.findOne({ where: { slug } });
-        } catch(err) {
+        } catch (err) {
             console.log('Ocorreu um erro ao buscar o artigo pelo SLUG');
         }
 
         return article;
+    }
+
+    async findByCategory(id_category: number): Promise<ArticleInstance[]> {
+        return await Article.findAll({
+            where: { id_category },
+            include: [{ model: Category, as: 'category' }]
+        });
     }
 
     async getAll(withCategories: boolean = true): Promise<ArticleInstance[]> {

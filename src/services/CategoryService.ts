@@ -50,6 +50,18 @@ export class CategoryService {
         return category;
     }
 
+    async findBySlug(slug: string): Promise<CategoryInstance | null> {
+        let category = null;
+
+        try {
+            category = await Category.findOne({ where: { slug } });
+        } catch (err) {
+            console.log('Ocorreu um erro ao buscar categoria pelo SLUG:', err);
+        }
+
+        return category;
+    }
+
     async getAll(): Promise<CategoryInstance[]> {
         return await Category.findAll();
     }
