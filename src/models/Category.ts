@@ -10,7 +10,7 @@ interface CategoryAttributes {
 
 interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
 
-interface CategoryInstance extends Model<CategoryAttributes, CategoryCreationAttributes> {}
+export interface CategoryInstance extends Model<CategoryAttributes, CategoryCreationAttributes> {}
 
 const Category = sequelize.define<CategoryInstance>('Category', {
     id: {

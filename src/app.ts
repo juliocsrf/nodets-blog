@@ -7,10 +7,6 @@ import connection from './instances/mysql';
 import categoriesRoute from './routes/categories.route';
 import articlesRoute from './routes/articles.route';
 
-import Article from './models/Article';
-import Category from './models/Category';
-
-
 console.log('Server starting...');
 dotenv.config();
 
@@ -32,9 +28,6 @@ connection
     .catch((error) => {
         console.log('Database connection error: ', error);
     });
-
-let articles = Article.findAll();
-let categories = Category.findAll();
 
 app.use(categoriesRoute);
 app.use(articlesRoute);
