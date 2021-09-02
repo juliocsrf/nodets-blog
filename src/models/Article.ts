@@ -48,4 +48,10 @@ Article.belongsTo(Category, {
     as: 'category'
 });
 
+Category.hasMany(Article, {
+    sourceKey: 'id',
+    foreignKey: 'id_category',
+    as: 'articles'
+});
+
 export default Article;

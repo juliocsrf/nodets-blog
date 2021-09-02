@@ -33,10 +33,4 @@ const Category = sequelize.define<CategoryInstance>('Category', {
     timestamps: false
 });
 
-// Category.hasMany(Article, {
-//     sourceKey: 'id_category',
-//     foreignKey: 'id',
-//     as: 'articles'
-// });
-
 export default Category;
