@@ -4,6 +4,8 @@ import mustache from 'mustache-express';
 import dotenv from 'dotenv';
 
 import connection from './instances/mysql';
+
+import homeRoute from './routes/home.route';
 import categoriesRoute from './routes/categories.route';
 import articlesRoute from './routes/articles.route';
 
@@ -29,12 +31,9 @@ connection
         console.log('Database connection error: ', error);
     });
 
+app.use(homeRoute);
 app.use(categoriesRoute);
 app.use(articlesRoute);
-
-app.get('/', (req: Request, res: Response) => {
-    res.render('index');
-});
 
 app.use((req: Request, res: Response) => {
     res.status(404).send('Página não encontrada');

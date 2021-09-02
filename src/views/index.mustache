@@ -1,5 +1,29 @@
-{{>partials/header}}
+{{ >partials/header }}
+{{ >partials/navbarHome }}
+
 <body>
-    <h1>Testando...</h1>
+	<div class="container">
+		<hr>
+		<div class="jumbotron">
+			<h1 class="display-4">Bem-vindo</h1>
+			<p class="lead">Blog realizado em NodeJS com TypeScript para fins de estudo</p>
+			<hr class="my-4">
+			<p>Github:</p>
+			<a href="https://github.com/juliocsrf/nodets-blog" class="btn btn-primary btn-lg" role="button" target="_blank">Github</a>
+		</div>
+		<hr>
+		{{ #articles }}
+			<div class="card">
+				<div class="card-header">
+					<h2>{{title}}</h2>
+				</div>
+				<div class="card-body">
+					<a href="/{{slug}}" class="btn btn-success">Ler artigo</a>
+				</div>
+			</div>
+			<br>
+		{{ /articles }}
+	</div>
 </body>
-{{>partials/footer}}
+
+{{ >partials/footer }}
