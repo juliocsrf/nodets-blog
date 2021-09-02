@@ -16,7 +16,7 @@ module.exports = {
         },
         title: Sequelize.DataTypes.STRING,
         slug: Sequelize.DataTypes.STRING,
-        body: Sequelize.DataTypes.STRING,
+        body: Sequelize.DataTypes.TEXT,
         id_category: {
             type: Sequelize.DataTypes.INTEGER,
             references: {
