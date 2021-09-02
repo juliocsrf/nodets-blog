@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <a href="/admin/categories/edit/{{id}}" class="btn btn-warning">Editar</a>
-                    <form action="/categories/delete" method="post" style="display: inline;"
+                    <form action="/admin/categories/delete" method="post" style="display: inline;"
                         onsubmit="confirmDelete(event, this)">
                         <input type="hidden" name="id" value="{{id}}">
                         <button class="btn btn-danger">Excluir</button>
