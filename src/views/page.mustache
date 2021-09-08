@@ -1,0 +1,21 @@
+{{ >partials/header }}
+{{ >partials/navbarHome }}
+
+<body>
+	<div class="container">
+		<hr>
+		{{ #articles }}
+			<div class="card">
+				<div class="card-header">
+					<h2>{{title}}</h2>
+				</div>
+				<div class="card-body">
+					<a href="/{{slug}}" class="btn btn-success">Ler artigo</a>
+				</div>
+			</div>
+			<br>
+		{{ /articles }}
+	</div>
+</body>
+
+{{ >partials/footer }}

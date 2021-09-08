@@ -29,7 +29,7 @@ export const showByCategory = async (req: Request, res: Response) => {
     let category = await categoryService.findBySlug(slug);
     let categories = await categoryService.getAll();
 
-    if(category) {
+    if (category) {
         let articles = await articleService.findByCategory(category.id);
         res.render('index', { articles, categories })
     } else {
@@ -39,13 +39,13 @@ export const showByCategory = async (req: Request, res: Response) => {
 
 export const showArticlePage = async (req: Request, res: Response) => {
     let page = parseInt(req.params.page);
-    if(isNaN(page) || page <= 0) {
+    if (isNaN(page) || page <= 0) {
         res.redirect('/');
         return;
     }
 
-    let count = await articleService.getTotalCount();
     let articles = await articleService.getPage(page, 2);
-    res.json(articles);
-    return;
+    let categories = await categoryService.getAll();
+    
+    res.render('page', { categories, ...articles });
 }
