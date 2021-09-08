@@ -36,3 +36,16 @@ export const showByCategory = async (req: Request, res: Response) => {
         res.redirect('/');
     }
 }
+
+export const showArticlePage = async (req: Request, res: Response) => {
+    let page = parseInt(req.params.page);
+    if(isNaN(page) || page <= 0) {
+        res.redirect('/');
+        return;
+    }
+
+    let count = await articleService.getTotalCount();
+    let articles = await articleService.getPage(page, 2);
+    res.json(articles);
+    return;
+}

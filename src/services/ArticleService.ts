@@ -1,6 +1,8 @@
+import slugify from 'slugify';
+
 import Article, { ArticleInstance } from "../models/Article";
 import Category from "../models/Category";
-import slugify from 'slugify';
+import { ArticlePagination } from '../types/ArticlePagination';
 
 export class ArticleService {
 
@@ -78,6 +80,35 @@ export class ArticleService {
 
         let articles = await Article.findAll(options);
         return articles;
+    }
+
+    async getTotalCount(): Promise<number> {
+        return await Article.count();
+    }
+
+    async getPage(page: number, limit: number, withCategories: boolean = true): Promise<ArticlePagination> {
+        let options: any = {};
+        if (withCategories) {
+            options = {
+                include: [{model: Category, as: 'category'}]
+            }
+        }
+
+        if(page < 1) { 
+            page = 0;
+        }
+
+        page--;
+        options.limit = limit;
+        options.offset = page * limit;
+
+        let articles = await Article.findAndCountAll(options);
+        let count = articles.count;
+
+        let next = !((options.offset + limit) >= articles.count);
+
+        let response: ArticlePagination = {next, count, articles: articles.rows };
+        return response;
     }
 
 }
