@@ -70,12 +70,14 @@ export class ArticleService {
         });
     }
 
-    async getAll(withCategories: boolean = true): Promise<ArticleInstance[]> {
-        let options = {};
+    async getAll(limit: number = 0, withCategories: boolean = true): Promise<ArticleInstance[]> {
+        let options: any = {};
         if (withCategories) {
-            options = {
-                include: [{ model: Category, as: 'category' }]
-            }
+            options.include = [{ model: Category, as: 'category' }]
+        }
+
+        if (limit > 0) {
+            options.limit = limit;
         }
 
         let articles = await Article.findAll(options);
@@ -90,11 +92,11 @@ export class ArticleService {
         let options: any = {};
         if (withCategories) {
             options = {
-                include: [{model: Category, as: 'category'}]
+                include: [{ model: Category, as: 'category' }]
             }
         }
 
-        if(page < 1) { 
+        if (page < 1) {
             page = 0;
         }
 
@@ -106,8 +108,12 @@ export class ArticleService {
         let count = articles.count;
 
         let next = !((options.offset + limit) >= articles.count);
+        let previous = (page > 0);
 
-        let response: ArticlePagination = {next, count, articles: articles.rows };
+        let next_url = `/articles/page/${page + 2}`;
+        let previous_url = `/articles/page/${page}`;
+
+        let response: ArticlePagination = { next, count, articles: articles.rows, previous, next_url, previous_url };
         return response;
     }
 

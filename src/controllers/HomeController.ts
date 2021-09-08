@@ -6,7 +6,7 @@ let articleService = new ArticleService();
 let categoryService = new CategoryService();
 
 export const index = async (req: Request, res: Response) => {
-    let articles = await articleService.getAll();
+    let articles = await articleService.getAll(2);
     let categories = await categoryService.getAll();
 
     res.render('index', { articles, categories });
@@ -46,6 +46,16 @@ export const showArticlePage = async (req: Request, res: Response) => {
 
     let articles = await articleService.getPage(page, 2);
     let categories = await categoryService.getAll();
+
+    let count = Math.ceil(articles.count / 2);
+    let pagination = [];
+    for(let x = 1; x <= count; x++) {
+        pagination.push({
+            page: x,
+            active: (page === x),
+            url: `/articles/page/${x}`
+        });
+    }
     
-    res.render('page', { categories, ...articles });
+    res.render('page', { categories, ...articles, pagination });
 }

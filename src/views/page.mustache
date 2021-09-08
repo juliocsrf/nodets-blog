@@ -2,20 +2,39 @@
 {{ >partials/navbarHome }}
 
 <body>
-	<div class="container">
-		<hr>
-		{{ #articles }}
-			<div class="card">
-				<div class="card-header">
-					<h2>{{title}}</h2>
-				</div>
-				<div class="card-body">
-					<a href="/{{slug}}" class="btn btn-success">Ler artigo</a>
-				</div>
-			</div>
-			<br>
-		{{ /articles }}
-	</div>
+    <div class="container">
+        <hr>
+        {{ #articles }}
+        <div class="card">
+            <div class="card-header">
+                <h2>{{title}}</h2>
+            </div>
+            <div class="card-body">
+                <a href="/{{slug}}" class="btn btn-success">Ler artigo</a>
+            </div>
+        </div>
+        <br>
+        {{ /articles }}
+
+        <div class="row">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {{^previous}}disabled{{/previous}}">
+                        <a class="page-link" href="{{previous_url}}" tabindex="-1">Anterior</a>
+                    </li>
+
+                    {{ #pagination }}
+                    <li class="page-item {{#active}}active{{/active}}"><a class="page-link" href="{{url}}">{{page}}</a>
+                    </li>
+                    {{ /pagination }}
+
+                    <li class="page-item {{^next}}disabled{{/next}}">
+                        <a class="page-link" href="{{next_url}}">Próximo</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </body>
 
 {{ >partials/footer }}
