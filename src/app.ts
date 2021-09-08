@@ -8,6 +8,7 @@ import connection from './instances/mysql';
 import homeRoute from './routes/home.route';
 import categoriesRoute from './routes/categories.route';
 import articlesRoute from './routes/articles.route';
+import usersRoute from './routes/users.route';
 
 console.log('Server starting...');
 dotenv.config();
@@ -31,9 +32,10 @@ connection
         console.log('Database connection error: ', error);
     });
 
-app.use(homeRoute);
 app.use(categoriesRoute);
 app.use(articlesRoute);
+app.use(usersRoute);
+app.use(homeRoute);
 
 app.use((req: Request, res: Response) => {
     res.status(404).send('Página não encontrada');
