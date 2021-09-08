@@ -27,6 +27,47 @@ export const store = async (req: Request, res: Response) => {
     res.redirect('/admin/articles');
 }
 
+export const edit = async (req: Request, res: Response) => {
+    let id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+        res.redirect('/admin/articles');
+        return;
+    }
+
+    let article = await articleService.findById(id);
+
+    if (!article) {
+        res.redirect('/admin/articles');
+        return;
+    }
+
+    let categories = await categoryService.getAll();
+    res.render('admin/articles/edit', { categories, article });
+}
+
+export const update = async (req: Request, res: Response) => {
+    let id = parseInt(req.params.id);
+    let title: string = req.body.title;
+    let body: string = req.body.body;
+    let id_category: number = parseInt(req.body.category);
+
+    if(isNaN(id) || isNaN(id_category)) {
+        res.redirect('/admin/articles');
+        return;
+    }
+
+    let article = await articleService.findById(id);
+    if(!article) {
+        res.redirect('/admin/articles');
+        return;
+    }
+
+    await articleService.update(id, title, body, id_category);
+
+    res.redirect('/admin/articles');
+}
+
 export const destroy = async (req: Request, res: Response) => {
     let id = req.body.id;
     if (id !== undefined && !isNaN(id)) {

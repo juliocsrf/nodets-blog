@@ -1,0 +1,46 @@
+{{>partials/header}}
+{{>partials/navbar}}
+
+<div class="container">
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            <h2>Editar artigo</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/articles/update/{{article.id}}">
+                <input type="text" name="title" placeholder="Defina o título do artigo" class="form-control"
+                    value="{{article.title}}" /><br>
+                <label for="category">Categoria</label>
+                <select name="category" id="category" class="form-control">
+                    {{ #categories }}
+                    <option value="{{ id }}">{{ title }}</option>
+                    {{ /categories }}
+                </select><br>
+                <textarea name="body" class="form-control" placeholder="Escreva o artigo aqui" id="article">
+                    {{{ article.body }}}
+                </textarea><br>
+                <button class="btn btn-success">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{>partials/footer}}
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: '#article',
+        plugins: [
+            'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+        ]
+    });
+
+    window.onload = () => {
+        let category = document.getElementById('category');
+        category.value = '{{ article.id_category }}';
+    }
+</script>
