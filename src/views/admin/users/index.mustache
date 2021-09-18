@@ -1,1 +1,63 @@
-index...
+{{>partials/header}}
+{{>partials/navbar}}
+
+<div class="container">
+    <hr>
+    <h2>Usuários</h2>
+    <a class="btn btn-success" href="/admin/users/new">Novo usuário</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#users}}
+            <tr>
+                <td>
+                    {{ id }}
+                </td>
+                <td>
+                    {{ name }}
+                </td>
+                <td>
+                    {{ email }}
+                </td>
+                <td>
+                    <a href="/admin/users/edit/{{id}}" class="btn btn-warning">Editar</a>
+                    <form action="/admin/users/delete" method="post" style="display: inline;"
+                        onsubmit="confirmDelete(event, this)">
+                        <input type="hidden" name="id" value="{{id}}">
+                        <button class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {{/users}}
+
+            {{^users}}
+            <tr>
+                <td colspan="4" style="text-align: center;">Nenhum registro encontrado</td>
+            </tr>
+            {{/users}}
+        </tbody>
+    </table>
+</div>
+
+{{>partials/footer}}
+
+<script>
+    const confirmDelete = (event, form) => {
+        event.preventDefault();
+
+        let decision = confirm('Tem certeza que deseja excluir o usuário selecionado?');
+
+        if(decision) {
+            form.submit();
+        }
+    }
+</script>
