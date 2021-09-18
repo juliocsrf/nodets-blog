@@ -88,4 +88,16 @@ export class UserService {
         let emails = await User.findAll({ where });
         return (emails.length > 0);
     }
+
+    async login(email: string, password: string): Promise<UserInstance | null> {
+        let user = await this.findByEmail(email);
+
+        if(user) {
+            if(bcrypt.compareSync(password, user.password)) {
+                return user;
+            }
+        }
+
+        return null;
+    }
 }

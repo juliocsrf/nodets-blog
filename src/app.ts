@@ -10,6 +10,7 @@ import homeRoute from './routes/home.route';
 import categoriesRoute from './routes/categories.route';
 import articlesRoute from './routes/articles.route';
 import usersRoute from './routes/users.route';
+import authRoute from './routes/auth.route';
 
 console.log('Server starting...');
 dotenv.config();
@@ -41,6 +42,7 @@ connection
 app.use(categoriesRoute);
 app.use(articlesRoute);
 app.use(usersRoute);
+app.use(authRoute);
 app.use(homeRoute);
 
 

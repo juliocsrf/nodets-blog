@@ -1,0 +1,25 @@
+{{>partials/header}}
+{{>partials/navbar}}
+
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>Login</h2>
+        </div>
+
+        <div class="card-body">
+            {{ #error }}
+            <div class="alert alert-danger" role="alert">
+                Usuário e/ou senha inválidos
+              </div>
+            {{ /error }}
+            <form method="POST" action="/admin/users/login">
+                <input type="email" class="form-control" name="email" placeholder="exemplo@exemplo.com"> <br/>
+                <input type="password" class="form-control" name="password" placeholder="Senha"><br/>
+                <button type="submit" class="btn btn-success btn-block">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{>partials/footer}}
