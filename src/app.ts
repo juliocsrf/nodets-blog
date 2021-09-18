@@ -18,7 +18,7 @@ const app = express();
 
 // Sessions
 app.use(session({
-    secret: 'banana', cookie: { maxAge: 30000 }
+    secret: 'banana', cookie: { maxAge: 3000000 }, resave: true, saveUninitialized: true
 }));
 
 app.set('view engine', 'mustache');
@@ -42,6 +42,7 @@ app.use(categoriesRoute);
 app.use(articlesRoute);
 app.use(usersRoute);
 app.use(homeRoute);
+
 
 app.use((req: Request, res: Response) => {
     res.status(404).send('Página não encontrada');
