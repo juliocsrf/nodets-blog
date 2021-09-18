@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import mustache from 'mustache-express';
+import session from 'express-session';
 import dotenv from 'dotenv';
 
 import connection from './instances/mysql';
@@ -14,6 +15,11 @@ console.log('Server starting...');
 dotenv.config();
 
 const app = express();
+
+// Sessions
+app.use(session({
+    secret: 'banana', cookie: { maxAge: 30000 }
+}));
 
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
