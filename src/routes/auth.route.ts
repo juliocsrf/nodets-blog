@@ -8,6 +8,6 @@ const router = Router();
 
 router.get('/admin/users/login', isAuthenticated, AuthController.index);
 router.post('/admin/users/login', AuthController.login);
-router.post('/admin/users/logout', auth, AuthController.logout);
+router.get('/admin/users/logout', auth, AuthController.logout);
 
 export default router;

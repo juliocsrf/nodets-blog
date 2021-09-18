@@ -28,5 +28,9 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const logout = async (req: Request, res: Response) => {
+    if(req.session) {
+        req.session.user = undefined;
+    }
 
+    res.redirect('/');
 }
