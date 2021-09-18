@@ -1,5 +1,6 @@
 import User, { UserInstance } from '../models/User';
 import { Op } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 export class UserService {
 
@@ -11,7 +12,8 @@ export class UserService {
         }
 
         try {
-            user = await User.create({ name, email, password });
+            let hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+            user = await User.create({ name, email, password: hash });
         } catch (err) {
             console.log('Ocorreu um erro ao criar o usuário:', err);
         }
@@ -25,7 +27,8 @@ export class UserService {
         }
 
         try {
-            await User.update({ name, email, password }, { where: { id } });
+            let hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+            await User.update({ name, email, password: hash }, { where: { id } });
         } catch (err) {
             console.log('Erro ao atualizar o usuário:', err);
             return false;
