@@ -1,14 +1,15 @@
 import { Router } from 'express';
 
 import * as CategoriesController from '../controllers/CategoriesController';
+import auth from '../middlewares/auth';
 
 const router = Router();
 
-router.get('/admin/categories', CategoriesController.index);
-router.get('/admin/categories/new', CategoriesController.create);
-router.post('/admin/categories/save', CategoriesController.store);
-router.post('/admin/categories/delete', CategoriesController.destroy);
-router.get('/admin/categories/edit/:id', CategoriesController.edit);
-router.post('/admin/categories/update', CategoriesController.update);
+router.get('/admin/categories', auth, CategoriesController.index);
+router.get('/admin/categories/new', auth, CategoriesController.create);
+router.post('/admin/categories/save', auth, CategoriesController.store);
+router.post('/admin/categories/delete', auth, CategoriesController.destroy);
+router.get('/admin/categories/edit/:id', auth, CategoriesController.edit);
+router.post('/admin/categories/update', auth, CategoriesController.update);
 
 export default router;

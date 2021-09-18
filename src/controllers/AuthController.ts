@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response) => {
             email: user.email
         }
 
-        res.json({ user: req.session.user });
+        res.redirect('/admin/categories');
         return;
     }
 
